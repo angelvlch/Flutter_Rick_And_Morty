@@ -79,12 +79,13 @@ class _listOfCharactersScreenState extends State<listOfCharactersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.separated(
+      body: const SearchBar(),
+      /*  ListView.separated(
         separatorBuilder: (context, index) => _buildDivider,
         itemCount: _characters.length,
         itemBuilder: (context, index) =>
             CharacterCard(character: _characters[index]),
-      ),
+      ), */
     );
   }
 }
