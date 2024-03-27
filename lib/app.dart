@@ -10,10 +10,6 @@ class App extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Roboto',
         scaffoldBackgroundColor: const Color(0xff0B1E2D),
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.purple,
-          brightness: Brightness.light,
-        ),
       ),
       home: const listOfCharactersScreen(),
     );

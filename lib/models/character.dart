@@ -4,6 +4,7 @@ class Character {
   final String species;
   final String gender;
   final String image;
+  final bool isAlive;
 
   Character({
     required this.name,
@@ -11,5 +12,6 @@ class Character {
     required this.species,
     required this.gender,
     required this.image,
+    required this.isAlive,
   });
 }
