@@ -32,7 +32,12 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: SvgPicture.asset('assets/icons/filter.svg'),
+          child: GestureDetector(
+            onTap: () {
+              print("hee");
+            },
+            child: SvgPicture.asset('assets/icons/filter.svg'),
+          ),
         )
       ],
       backgroundColor: MaterialStateProperty.all(Palette.searchBar),
