@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:rick_and_morti/models/character.dart';
 import 'package:rick_and_morti/pages/list_of_characters/widgets/widgets.dart';
 
-class listOfCharactersScreen extends StatefulWidget {
-  const listOfCharactersScreen({super.key});
+class ListOfCharactersScreen extends StatefulWidget {
+  const ListOfCharactersScreen({super.key});
 
   @override
-  State<listOfCharactersScreen> createState() => _listOfCharactersScreenState();
+  State<ListOfCharactersScreen> createState() => _ListOfCharactersScreenState();
 }
 
-class _listOfCharactersScreenState extends State<listOfCharactersScreen> {
+class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
   final _characters = [
     Character(
       name: 'Рик Cанчез',
@@ -27,6 +27,14 @@ class _listOfCharactersScreenState extends State<listOfCharactersScreen> {
       gender: 'Мужской',
       image: 'assets/image/avatar.png',
       isAlive: true,
+    ),
+    Character(
+      name: 'Рик Cанчез',
+      status: 'ЖИВОЙ',
+      species: 'Человек',
+      gender: 'Мужской',
+      image: 'assets/image/avatar.png',
+      isAlive: false,
     ),
     Character(
       name: 'Рик Cанчез',

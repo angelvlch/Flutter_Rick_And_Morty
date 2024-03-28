@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/svg.dart';
+import 'package:rick_and_morti/configs/AppFonts.dart';
 import 'package:rick_and_morti/configs/palette.dart';
 
 class SearchBarWidget extends StatefulWidget {
@@ -16,8 +17,9 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     return SearchBar(
       hintText: 'Найти персонажа',
       hintStyle: MaterialStateProperty.all(
-        const TextStyle(
+        AppFonts.s16w400.copyWith(
           color: Palette.smallText,
+          letterSpacing: 0.44,
         ),
       ),
       leading: Container(

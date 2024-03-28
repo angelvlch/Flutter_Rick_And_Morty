@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:rick_and_morti/configs/AppFonts.dart';
 import 'package:rick_and_morti/configs/palette.dart';
 import 'package:rick_and_morti/models/character.dart';
 
@@ -21,29 +22,25 @@ class CharacterCard extends StatelessWidget {
               children: [
                 Text(
                   character.status,
-                  style: TextStyle(
+                  style: AppFonts.s10w500.copyWith(
                     color: character.isAlive
                         ? Palette.isAliveColor
                         : Palette.isDeathColor,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.w500,
-                    fontSize: 10,
+                    letterSpacing: 1.5,
                   ),
                 ),
                 Text(
                   character.name,
-                  style: const TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 16,
+                  style: AppFonts.s16w500.copyWith(
                     color: Colors.white,
+                    letterSpacing: 0.5,
                   ),
                 ),
                 Text(
                   '${character.species}, ${character.gender}',
-                  style: const TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 12,
+                  style: AppFonts.s12w400.copyWith(
                     color: Palette.smallText,
+                    letterSpacing: 0.5,
                   ),
                 ),
               ],
