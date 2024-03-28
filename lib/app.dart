@@ -8,7 +8,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        fontFamily: 'Roboto',
+        appBarTheme: const AppBarTheme(
+          color: Color(0xff0B1E2D),
+        ),
         scaffoldBackgroundColor: const Color(0xff0B1E2D),
       ),
       home: const listOfCharactersScreen(),
