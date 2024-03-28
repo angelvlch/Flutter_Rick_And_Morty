@@ -54,31 +54,7 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
       species: 'Человек',
       gender: 'Мужской',
       image: 'assets/image/avatar.png',
-      isAlive: false,
-    ),
-    Character(
-      name: 'Рик Cанчез',
-      status: 'ЖИВОЙ',
-      species: 'Человек',
-      gender: 'Мужской',
-      image: 'assets/image/avatar.png',
-      isAlive: false,
-    ),
-    Character(
-      name: 'Рик Cанчез',
-      status: 'ЖИВОЙ',
-      species: 'Человек',
-      gender: 'Мужской',
-      image: 'assets/image/avatar.png',
-      isAlive: false,
-    ),
-    Character(
-      name: 'Рик Cанчез',
-      status: 'ЖИВОЙ',
-      species: 'Человек',
-      gender: 'Мужской',
-      image: 'assets/image/avatar.png',
-      isAlive: false,
+      isAlive: true,
     ),
   ];
 
@@ -93,6 +69,7 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xff0B1E2D),
         title: const SearchBarWidget(),
       ),
       body: Padding(
@@ -123,12 +100,7 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
                 ],
               ),
             ),
-            isListView
-                ? _buildListView()
-                : Container(
-                    color: Colors.red,
-                    child: Container(),
-                  ),
+            isListView ? _buildListView() : _buildGridView(),
           ],
         ),
       ),
@@ -150,5 +122,17 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
     setState(() {
       isListView = !isListView;
     });
+  }
+
+  Expanded _buildGridView() {
+    return Expanded(
+      child: GridView.builder(
+        itemCount: _characters.length,
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemBuilder: (context, index) =>
+            CharacterGrid(character: _characters[index]),
+      ),
+    );
   }
 }
