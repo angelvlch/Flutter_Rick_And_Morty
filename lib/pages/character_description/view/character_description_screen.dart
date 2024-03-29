@@ -12,27 +12,40 @@ class CharacterDescriptionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
+      body: Column(
         children: [
           Stack(
+            clipBehavior: Clip.none,
             children: [
               Container(
-                color: Colors.black
-                    .withOpacity(0.5), // Уровень затемнения (от 0.0 до 1.0)
-              ),
-              Image.network(
-                'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-              ),
-              /*   BackdropFilter(
-                filter:
-                    ImageFilter.blur(sigmaX: 5, sigmaY: 5), // Уровень размытия
-                child: Container(
-                  color: Colors
-                      .transparent, // Чтобы размытие не затрагивало цвет фона
+                height: 218,
+                alignment: Alignment.center,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                      'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+                    ),
+                    fit: BoxFit.fitWidth,
+                  ),
                 ),
-              ), */
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color.fromRGBO(0, 0, 0, 0.65),
+                          Color.fromRGBO(11, 30, 45, 0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
