@@ -127,6 +127,7 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
   Expanded _buildGridView() {
     return Expanded(
       child: GridView.builder(
+        shrinkWrap: true,
         itemCount: _characters.length,
         gridDelegate:
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),

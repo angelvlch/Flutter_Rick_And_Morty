@@ -21,6 +21,8 @@ class _CharacterCardState extends State<CharacterCard> {
         ClipRRect(
           borderRadius: BorderRadius.circular(100),
           child: Image(
+            width: 74,
+            height: 74,
             image: AssetImage(widget.character.image),
           ),
         ),
