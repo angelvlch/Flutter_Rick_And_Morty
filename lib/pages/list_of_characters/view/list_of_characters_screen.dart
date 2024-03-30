@@ -18,7 +18,7 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
   final _characters = [
     Character(
       name: 'Рик Cанчез',
-      status: 'ЖИВОЙ',
+      status: 'МЁРТВЫЙ',
       species: 'Человек',
       gender: 'Мужской',
       image: 'assets/image/avatar.png',
