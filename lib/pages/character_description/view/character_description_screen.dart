@@ -16,6 +16,7 @@ class CharacterDescriptionScreen extends StatelessWidget {
         children: [
           Stack(
             clipBehavior: Clip.none,
+            alignment: Alignment.center,
             children: [
               Container(
                 height: 218,
@@ -44,6 +45,27 @@ class CharacterDescriptionScreen extends StatelessWidget {
                   ),
                 ),
               ),
+              const Positioned(
+                bottom: -90.0,
+                child: CircleAvatar(
+                  radius: 108,
+                  backgroundColor: Color(0xff0B1E2D),
+                  child: CircleAvatar(
+                    radius: 100,
+                    backgroundImage: NetworkImage(
+                        'https://rickandmortyapi.com/api/character/avatar/1.jpeg'),
+                  ),
+                ),
+              ),
+              /* ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image(
+                  width: 74,
+                  height: 74,
+                  image: NetworkImage(
+                      'https://rickandmortyapi.com/api/character/avatar/1.jpeg',),
+                ),
+              ), */
             ],
           ),
         ],
