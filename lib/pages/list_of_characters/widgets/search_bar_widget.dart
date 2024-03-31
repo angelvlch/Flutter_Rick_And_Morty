@@ -5,7 +5,9 @@ import 'package:rick_and_morti/configs/AppFonts.dart';
 import 'package:rick_and_morti/configs/palette.dart';
 
 class SearchBarWidget extends StatefulWidget {
-  const SearchBarWidget({super.key});
+  final Function onChange;
+
+  const SearchBarWidget({super.key, required this.onChange});
 
   @override
   State<SearchBarWidget> createState() => _SearchBarWidgetState();
@@ -15,6 +17,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
   @override
   Widget build(BuildContext context) {
     return SearchBar(
+      onChanged: (value) => widget.onChange(value),
       hintText: 'Найти персонажа',
       hintStyle: MaterialStateProperty.all(
         AppFonts.s16w400.copyWith(
