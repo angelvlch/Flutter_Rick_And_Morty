@@ -106,7 +106,7 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Всего персонажей: ${_characters.length}',
+                    'Всего персонажей: ${_foundCharacter.length}',
                     style: AppFonts.s10w500.copyWith(
                       color: Palette.smallText,
                       letterSpacing: 1.5,
@@ -126,7 +126,26 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
             ),
             _foundCharacter.isNotEmpty
                 ? (isListView ? _buildListView() : _buildGridView())
-                : Text("Empty"),
+                : Align(
+                    alignment: Alignment.center,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 60, bottom: 28),
+                          child:
+                              Image.asset('assets/image/nothing_founded.png'),
+                        ),
+                        Text(
+                          'Персонаж с таким именем\n не найден',
+                          textAlign: TextAlign.center,
+                          style: AppFonts.s16w400.copyWith(
+                            color: Palette.smallText,
+                            letterSpacing: 0.15,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
           ],
         ),
       ),

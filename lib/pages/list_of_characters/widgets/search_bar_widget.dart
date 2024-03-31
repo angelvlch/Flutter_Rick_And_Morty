@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rick_and_morti/configs/AppFonts.dart';
 import 'package:rick_and_morti/configs/palette.dart';
+import 'package:rick_and_morti/pages/filter/view/view.dart';
 
 class SearchBarWidget extends StatefulWidget {
   final Function onChange;
@@ -43,7 +44,14 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const FilterScreen(),
+                ),
+              );
+            },
             child: SvgPicture.asset('assets/icons/filter.svg'),
           ),
         )
