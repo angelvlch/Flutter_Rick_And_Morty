@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:rick_and_morti/configs/AppFonts.dart';
 import 'package:rick_and_morti/configs/palette.dart';
 import 'package:rick_and_morti/models/character.dart';
-import 'package:rick_and_morti/pages/character_description/view/character_description_screen.dart';
+import 'package:rick_and_morti/pages/character_description/view/view.dart';
 
 class CharacterGrid extends StatefulWidget {
   final Character character;

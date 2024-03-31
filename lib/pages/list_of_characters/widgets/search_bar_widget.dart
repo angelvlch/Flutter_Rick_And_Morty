@@ -17,7 +17,14 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
   @override
   Widget build(BuildContext context) {
     return SearchBar(
-      onChanged: (value) => widget.onChange(value),
+      textStyle: MaterialStatePropertyAll(
+        AppFonts.s16w400.copyWith(
+          color: Colors.white,
+        ),
+      ),
+      onChanged: (value) {
+        widget.onChange(value);
+      },
       hintText: 'Найти персонажа',
       hintStyle: MaterialStateProperty.all(
         AppFonts.s16w400.copyWith(
@@ -36,9 +43,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: GestureDetector(
-            onTap: () {
-              print("hee");
-            },
+            onTap: () {},
             child: SvgPicture.asset('assets/icons/filter.svg'),
           ),
         )

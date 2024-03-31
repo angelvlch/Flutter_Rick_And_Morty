@@ -17,7 +17,7 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
   bool isListView = true;
   final List<Character> _characters = [
     Character(
-      name: 'Рик Cанчез',
+      name: 'Angel',
       status: 'МЁРТВЫЙ',
       species: 'Человек',
       gender: 'Мужской',
@@ -25,7 +25,7 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
       isAlive: true,
     ),
     Character(
-      name: 'Рик Cанчез',
+      name: 'ASLD',
       status: 'ЖИВОЙ',
       species: 'Человек',
       gender: 'Мужской',
@@ -71,18 +71,16 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
     super.initState();
   }
 
-  void _runFilter(String enteredKeyword) {
+  void _runSearch(String enteredKeyword) {
     List<Character> results = [];
     if (enteredKeyword.isEmpty) {
-      // if the search field is empty or only contains white-space, we'll display all users
       results = _characters;
     } else {
-      results = _foundCharacter
+      results = _characters
           .where((character) => character.name
               .toLowerCase()
               .contains(enteredKeyword.toLowerCase()))
           .toList();
-      // we use the toLowerCase() method to make it case-insensitive
     }
     setState(() {
       _foundCharacter = results;
@@ -93,9 +91,9 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xff0B1E2D),
+        backgroundColor: const Color(0xff0B1E2D),
         title: SearchBarWidget(
-          onChange: (value) => _runFilter(value),
+          onChange: (value) => _runSearch(value),
         ),
       ),
       body: Padding(
