@@ -15,6 +15,7 @@ class ListOfCharactersScreen extends StatefulWidget {
 
 class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
   bool isListView = true;
+  bool isFilter = false;
   final List<Character> _characters = [
     Character(
       name: 'Ф',
@@ -42,6 +43,38 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
     ),
     Character(
       name: 'И',
+      status: 'ЖИВОЙ',
+      species: 'Человек',
+      gender: 'Мужской',
+      image: 'assets/image/avatar.png',
+      isAlive: true,
+    ),
+    Character(
+      name: 'А',
+      status: 'ЖИВОЙ',
+      species: 'Человек',
+      gender: 'Мужской',
+      image: 'assets/image/avatar.png',
+      isAlive: true,
+    ),
+    Character(
+      name: 'А',
+      status: 'ЖИВОЙ',
+      species: 'Человек',
+      gender: 'Мужской',
+      image: 'assets/image/avatar.png',
+      isAlive: true,
+    ),
+    Character(
+      name: 'А',
+      status: 'ЖИВОЙ',
+      species: 'Человек',
+      gender: 'Мужской',
+      image: 'assets/image/avatar.png',
+      isAlive: true,
+    ),
+    Character(
+      name: 'А',
       status: 'ЖИВОЙ',
       species: 'Человек',
       gender: 'Мужской',
@@ -88,12 +121,14 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
   }
 
   void _isAscList(bool value) {
-    _foundCharacter.sort((a, b) => a.name.compareTo(b.name));
-    setState(() {
-      if (!value) {
-        _foundCharacter = _foundCharacter.reversed.toList();
-      }
-    });
+    if (isFilter) {
+      _foundCharacter.sort((a, b) => a.name.compareTo(b.name));
+      setState(() {
+        if (!value) {
+          _foundCharacter = _foundCharacter.reversed.toList();
+        }
+      });
+    }
   }
 
   @override
@@ -104,6 +139,7 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
         title: SearchBarWidget(
           onChange: (value) => _runSearch(value),
           isAsc: (value) => _isAscList(value),
+          isFilter: isFilter,
         ),
       ),
       body: Padding(
@@ -184,8 +220,10 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
       child: GridView.builder(
         shrinkWrap: true,
         itemCount: _foundCharacter.length,
-        gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, crossAxisSpacing: 24, // Расстояние между столбцами
+          mainAxisSpacing: 16,
+        ),
         itemBuilder: (context, index) =>
             CharacterGrid(character: _foundCharacter[index]),
       ),

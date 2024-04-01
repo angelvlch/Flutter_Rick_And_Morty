@@ -23,53 +23,43 @@ class _CharacterGridState extends State<CharacterGrid> {
                 builder: (context) =>
                     CharacterDescriptionScreen(character: widget.character)));
       },
-      child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 22,
-          ),
-          child: Expanded(
-            child: Column(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: Image(
-                    height: 122,
-                    image: AssetImage(widget.character.image),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(top: 18),
-                  child: Column(
-                    children: [
-                      Text(
-                        widget.character.status,
-                        style: AppFonts.s10w500.copyWith(
-                          color: widget.character.isAlive
-                              ? Palette.isAliveColor
-                              : Palette.isDeathColor,
-                          letterSpacing: 1.5,
-                        ),
-                      ),
-                      Text(
-                        widget.character.name,
-                        style: AppFonts.s16w400.copyWith(
-                          letterSpacing: 0.1,
-                          color: Colors.white,
-                        ),
-                      ),
-                      Text(
-                        '${widget.character.species}, ${widget.character.gender}',
-                        style: AppFonts.s12w400.copyWith(
-                          color: Palette.smallText,
-                          letterSpacing: 0.5,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+      child: Column(
+        children: [
+          Flexible(
+            flex: 1,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Image(
+                // height: 122,
+                image: AssetImage(widget.character.image),
+              ),
             ),
-          )),
+          ),
+          Text(
+            widget.character.status,
+            style: AppFonts.s10w500.copyWith(
+              color: widget.character.isAlive
+                  ? Palette.isAliveColor
+                  : Palette.isDeathColor,
+              letterSpacing: 1.5,
+            ),
+          ),
+          Text(
+            widget.character.name,
+            style: AppFonts.s16w400.copyWith(
+              letterSpacing: 0.1,
+              color: Colors.white,
+            ),
+          ),
+          Text(
+            '${widget.character.species}, ${widget.character.gender}',
+            style: AppFonts.s12w400.copyWith(
+              color: Palette.smallText,
+              letterSpacing: 0.5,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
