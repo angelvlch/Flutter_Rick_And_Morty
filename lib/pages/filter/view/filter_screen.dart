@@ -6,11 +6,14 @@ import 'package:rick_and_morti/configs/palette.dart';
 
 class FilterScreen extends StatefulWidget {
   final Function onChange;
-  bool isFilter;
+  final Function isFilter;
+
+  final Function getIsFilter;
   FilterScreen({
     super.key,
     required this.onChange,
     required this.isFilter,
+    required this.getIsFilter,
   });
 
   @override
@@ -42,11 +45,11 @@ class _FilterScreenState extends State<FilterScreen> {
                 color: Colors.white,
               ),
             ),
-            if (widget.isFilter)
+            if (widget.getIsFilter())
               GestureDetector(
                 child: SvgPicture.asset('assets/image/Group.svg'),
                 onTap: () => setState(() {
-                  widget.isFilter = !widget.isFilter;
+                  widget.isFilter(false);
                 }),
               ),
           ],
@@ -81,7 +84,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       onTap: _changeSortAsc,
                       child: SvgPicture.asset(
                         'assets/image/sortMax.svg',
-                        color: widget.isFilter
+                        color: widget.getIsFilter()
                             ? (isAscending
                                 ? Palette.filterIcon
                                 : Palette.smallText)
@@ -97,7 +100,7 @@ class _FilterScreenState extends State<FilterScreen> {
                       onTap: _changeSortDesc,
                       child: SvgPicture.asset(
                         'assets/image/sortMin.svg',
-                        color: widget.isFilter
+                        color: widget.getIsFilter()
                             ? (isDesc ? Palette.filterIcon : Palette.smallText)
                             : Palette.smallText,
                       ),
@@ -150,9 +153,9 @@ class _FilterScreenState extends State<FilterScreen> {
     setState(() {
       isAscending = !isAscending;
       if (isAscending) {
-        widget.isFilter = true;
+        widget.isFilter(true);
       } else {
-        widget.isFilter = false;
+        widget.isFilter(false);
       }
       isDesc = false;
     });
@@ -163,9 +166,9 @@ class _FilterScreenState extends State<FilterScreen> {
     setState(() {
       isDesc = !isDesc;
       if (isDesc) {
-        widget.isFilter = true;
+        widget.isFilter(true);
       } else {
-        widget.isFilter = false;
+        widget.isFilter(false);
       }
       isAscending = false;
     });

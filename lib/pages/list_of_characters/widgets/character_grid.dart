@@ -30,10 +30,12 @@ class _CharacterGridState extends State<CharacterGrid> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(100),
               child: Image(
-                // height: 122,
                 image: AssetImage(widget.character.image),
               ),
             ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 24),
           ),
           Text(
             widget.character.status,

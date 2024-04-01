@@ -98,6 +98,8 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
     );
   }
 
+  bool getIsFilter() => isFilter;
+
   @override
   void initState() {
     _foundCharacter = _characters;
@@ -139,7 +141,10 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
         title: SearchBarWidget(
           onChange: (value) => _runSearch(value),
           isAsc: (value) => _isAscList(value),
-          isFilter: isFilter,
+          isFilter: (value) => setState(() {
+            isFilter = value;
+          }),
+          getIsFilter: getIsFilter,
         ),
       ),
       body: Padding(
@@ -221,7 +226,8 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
         shrinkWrap: true,
         itemCount: _foundCharacter.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, crossAxisSpacing: 24, // Расстояние между столбцами
+          crossAxisCount: 2,
+          crossAxisSpacing: 24,
           mainAxisSpacing: 16,
         ),
         itemBuilder: (context, index) =>
