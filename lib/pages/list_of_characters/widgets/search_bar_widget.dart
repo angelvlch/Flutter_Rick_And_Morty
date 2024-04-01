@@ -7,9 +7,13 @@ import 'package:rick_and_morti/pages/filter/view/view.dart';
 
 class SearchBarWidget extends StatefulWidget {
   final Function onChange;
+  final Function isAsc;
 
-  const SearchBarWidget({super.key, required this.onChange});
-
+  const SearchBarWidget({
+    Key? key, // Исправлено: заменено super.key на Key? key
+    required this.onChange,
+    required this.isAsc,
+  }) : super(key: key);
   @override
   State<SearchBarWidget> createState() => _SearchBarWidgetState();
 }
@@ -48,7 +52,9 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const FilterScreen(),
+                  builder: (context) => FilterScreen(
+                    onChange: widget.isAsc,
+                  ),
                 ),
               );
             },

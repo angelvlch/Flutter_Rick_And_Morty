@@ -17,7 +17,7 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
   bool isListView = true;
   final List<Character> _characters = [
     Character(
-      name: 'Angel',
+      name: 'Ф',
       status: 'МЁРТВЫЙ',
       species: 'Человек',
       gender: 'Мужской',
@@ -25,7 +25,7 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
       isAlive: true,
     ),
     Character(
-      name: 'ASLD',
+      name: 'Б',
       status: 'ЖИВОЙ',
       species: 'Человек',
       gender: 'Мужской',
@@ -33,7 +33,7 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
       isAlive: true,
     ),
     Character(
-      name: 'Рик Cанчез',
+      name: 'С',
       status: 'ЖИВОЙ',
       species: 'Человек',
       gender: 'Мужской',
@@ -41,7 +41,7 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
       isAlive: false,
     ),
     Character(
-      name: 'Рик Cанчез',
+      name: 'И',
       status: 'ЖИВОЙ',
       species: 'Человек',
       gender: 'Мужской',
@@ -49,7 +49,7 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
       isAlive: true,
     ),
     Character(
-      name: 'Рик Cанчез',
+      name: 'А',
       status: 'ЖИВОЙ',
       species: 'Человек',
       gender: 'Мужской',
@@ -87,6 +87,15 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
     });
   }
 
+  void _isAscList(bool value) {
+    _foundCharacter.sort((a, b) => a.name.compareTo(b.name));
+    setState(() {
+      if (!value) {
+        _foundCharacter = _foundCharacter.reversed.toList();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,6 +103,7 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
         backgroundColor: const Color(0xff0B1E2D),
         title: SearchBarWidget(
           onChange: (value) => _runSearch(value),
+          isAsc: (value) => _isAscList(value),
         ),
       ),
       body: Padding(
