@@ -15,7 +15,7 @@ class App extends StatelessWidget {
         ),
         scaffoldBackgroundColor: const Color(0xff0B1E2D),
       ),
-      home: const ListOfCharactersScreen(),
+      //  home: const ListOfCharactersScreen(),
     );
   }
 }

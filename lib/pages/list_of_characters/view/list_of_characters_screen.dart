@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rick_and_morti/configs/AppFonts.dart';
 import 'package:rick_and_morti/configs/palette.dart';
 
-import 'package:rick_and_morti/models/character.dart';
+import 'package:rick_and_morti/models/character/character.dart';
 import 'package:rick_and_morti/pages/list_of_characters/widgets/widgets.dart';
 
 class ListOfCharactersScreen extends StatefulWidget {
@@ -126,7 +126,7 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
     if (isFilter) {
       _foundCharacter.sort((a, b) => a.name.compareTo(b.name));
       setState(() {
-        if (!value) {
+        if (value) {
           _foundCharacter = _foundCharacter.reversed.toList();
         }
       });
@@ -236,3 +236,4 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
     );
   }
 }
+ */

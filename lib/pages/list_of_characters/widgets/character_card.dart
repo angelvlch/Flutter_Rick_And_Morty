@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:rick_and_morti/configs/AppFonts.dart';
 import 'package:rick_and_morti/configs/palette.dart';
-import 'package:rick_and_morti/models/character.dart';
+import 'package:rick_and_morti/models/character/character.dart';
 import 'package:rick_and_morti/pages/character_description/view/view.dart';
 
 class CharacterCard extends StatefulWidget {
@@ -71,3 +71,4 @@ class _CharacterCardState extends State<CharacterCard> {
     );
   }
 }
+ */
