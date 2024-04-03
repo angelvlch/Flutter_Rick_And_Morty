@@ -1,8 +1,8 @@
 import 'dart:core';
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:rick_and_morti/models/character/location.dart';
-import 'package:rick_and_morti/models/character/origin.dart';
+import 'package:rick_and_morti/data/models/character/location.dart';
+import 'package:rick_and_morti/data/models/character/origin.dart';
 
 part 'character.g.dart';
 
