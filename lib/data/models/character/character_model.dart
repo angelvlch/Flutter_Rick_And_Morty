@@ -1,9 +1,17 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:rick_and_morti/data/models/character/info.dart';
-import 'package:rick_and_morti/data/models/character/results.dart';
 
-//@JsonSerializable()
+import 'character.dart';
+
+part 'character_model.g.dart';
+
+@JsonSerializable()
 class CharacterModel {
   Info? info;
-//Results? results;
+  List<Character>? results;
+
+  CharacterModel({this.info, this.results});
+  factory CharacterModel.fromJson(Map<String, dynamic> json) =>
+      _$CharacterModelFromJson(json);
+  Map<String, dynamic> toJson() => _$CharacterModelToJson(this);
 }
