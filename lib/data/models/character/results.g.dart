@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'character.dart';
+part of 'results.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Character _$CharacterFromJson(Map<String, dynamic> json) => Character(
+Results _$ResultsFromJson(Map<String, dynamic> json) => Results(
       id: json['id'] as int?,
       name: json['name'] as String?,
       status: json['status'] as String?,
@@ -25,7 +25,7 @@ Character _$CharacterFromJson(Map<String, dynamic> json) => Character(
       created: json['created'] as String?,
     );
 
-Map<String, dynamic> _$CharacterToJson(Character instance) => <String, dynamic>{
+Map<String, dynamic> _$ResultsToJson(Results instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'status': instance.status,

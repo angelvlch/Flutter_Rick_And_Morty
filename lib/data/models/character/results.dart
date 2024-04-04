@@ -1,13 +1,13 @@
 import 'dart:core';
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:rick_and_morti/domain/models/character/location.dart';
-import 'package:rick_and_morti/domain/models/character/origin.dart';
+import 'package:rick_and_morti/data/models/character/location.dart';
+import 'package:rick_and_morti/data/models/character/origin.dart';
 
-part 'character.g.dart';
+part 'results.g.dart';
 
 @JsonSerializable()
-class Character {
+class Results {
   int? id;
   String? name;
   String? status;
@@ -21,7 +21,7 @@ class Character {
   String? url;
   String? created;
 
-  Character({
+  Results({
     this.id,
     this.name,
     this.status,
@@ -36,7 +36,7 @@ class Character {
     this.created,
   });
 
-  factory Character.fromJson(Map<String, dynamic> json) =>
-      _$CharacterFromJson(json);
-  Map<String, dynamic> toJson() => _$CharacterToJson(this);
+  factory Results.fromJson(Map<String, dynamic> json) =>
+      _$ResultsFromJson(json);
+  Map<String, dynamic> toJson() => _$ResultsToJson(this);
 }
