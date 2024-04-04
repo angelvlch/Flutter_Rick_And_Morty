@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rick_and_morti/configs/AppFonts.dart';
 import 'package:rick_and_morti/configs/palette.dart';
-import 'package:rick_and_morti/pages/filter/view/view.dart';
+import 'package:rick_and_morti/presentation/pages/filter/view/view.dart';
 
 class SearchBarWidget extends StatefulWidget {
   final Function onChange;

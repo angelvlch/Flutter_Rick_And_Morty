@@ -1,4 +1,4 @@
-import 'package:rick_and_morti/data/models/character/character.dart';
+import 'package:rick_and_morti/domain/models/character/character.dart';
 import 'package:http/http.dart' as http;
 /* 
 class CharacterRepo{
