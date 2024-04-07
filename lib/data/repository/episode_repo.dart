@@ -7,7 +7,8 @@ class EpisodeRepo {
 
   @override
   Future<List<Episode>> getEpisodes(String? series) async {
-    final response = await dio.get('https://rickandmortyapi.com/api/episode/');
+    final response =
+        await dio.get('https://rickandmortyapi.com/api/episode/$series');
     final List<dynamic> data = response.data['results'];
     final episodes = data.map((e) => Episode.fromJson(e)).toList();
     return episodes;
