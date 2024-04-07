@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:rick_and_morti/configs/AppFonts.dart';
 import 'package:rick_and_morti/configs/palette.dart';
 import 'package:rick_and_morti/data/bloc/character_bloc.dart';
@@ -23,6 +24,8 @@ class _SearchPageState extends State<SearchPage> {
   int _currentPage = 1;
   String _currentSearchStr = '';
   bool isListView = true;
+  final refreshController = RefreshController();
+  bool _isPagination = false;
 
   @override
   void initState() {
@@ -49,11 +52,22 @@ class _SearchPageState extends State<SearchPage> {
         _createSearchBar(context),
         BlocBuilder<CharacterBloc, CharacterState>(builder: (context, state) {
           if (state is CharacterLoading) {
-            return const CircularProgressIndicator();
+            if (!_isPagination) {
+              return const CircularProgressIndicator();
+            } else {
+              return _createCatalog(_currentResults);
+            }
           }
           if (state is CharacterLoaded) {
             _currentCharacter = state.character;
-            _currentResults = _currentCharacter.results;
+            if (_isPagination) {
+              _currentResults!.addAll(_currentCharacter.results!);
+              refreshController.loadComplete();
+              _isPagination = false;
+            } else {
+              _currentResults = _currentCharacter.results;
+            }
+
             return Expanded(
               child: _currentResults!.isEmpty
                   ? Container()
@@ -72,36 +86,47 @@ class _SearchPageState extends State<SearchPage> {
       child: Column(
         children: [
           _buildNumberOfChar(results!.length),
-          isListView ? _buildListView(results) : _buildGridView(results)
+          Expanded(
+              child: SmartRefresher(
+            controller: refreshController,
+            enablePullUp: true,
+            enablePullDown: false,
+            onLoading: () {
+              _isPagination = true;
+              _currentPage++;
+              if (_currentPage <= _currentCharacter.info!.pages!) {
+                context.read<CharacterBloc>().add(CharacterFetch(
+                    name: _currentSearchStr, page: _currentPage));
+              } else {
+                refreshController.loadNoData();
+              }
+            },
+            child:
+                isListView ? _buildListView(results) : _buildGridView(results),
+          )),
         ],
       ),
     );
   }
 
-  Expanded _buildListView(List<Results>? results) {
-    return Expanded(
-      child: ListView.separated(
-        separatorBuilder: (context, index) => const Divider(),
-        itemCount: results!.length,
-        itemBuilder: (context, index) =>
-            CharacterCard(character: results[index]),
-      ),
+  ListView _buildListView(List<Results>? results) {
+    return ListView.separated(
+      separatorBuilder: (context, index) => const Divider(),
+      itemCount: results!.length,
+      itemBuilder: (context, index) => CharacterCard(character: results[index]),
     );
   }
 
-  Expanded _buildGridView(List<Results>? results) {
-    return Expanded(
-      child: GridView.builder(
-        shrinkWrap: true,
-        itemCount: results!.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 24,
-          mainAxisSpacing: 16,
-        ),
-        itemBuilder: (context, index) =>
-            CharacterGrid(character: results[index]),
+  GridView _buildGridView(List<Results>? results) {
+    return GridView.builder(
+      shrinkWrap: true,
+      itemCount: results!.length,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 24,
+        mainAxisSpacing: 16,
       ),
+      itemBuilder: (context, index) => CharacterGrid(character: results[index]),
     );
   }
 
