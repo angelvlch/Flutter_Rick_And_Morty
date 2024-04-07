@@ -14,4 +14,9 @@ class Character {
   factory Character.fromJson(Map<String, dynamic> json) =>
       _$CharacterFromJson(json);
   Map<String, dynamic> toJson() => _$CharacterToJson(this);
+  @override
+  String toString() {
+    // TODO: implement toString
+    return '$info';
+  }
 }

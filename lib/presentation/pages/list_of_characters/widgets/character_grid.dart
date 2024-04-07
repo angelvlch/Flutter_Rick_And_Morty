@@ -1,11 +1,10 @@
-/* import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:rick_and_morti/configs/AppFonts.dart';
 import 'package:rick_and_morti/configs/palette.dart';
-import 'package:rick_and_morti/models/character/character.dart';
-import 'package:rick_and_morti/pages/character_description/view/view.dart';
+import 'package:rick_and_morti/data/models/character/results.dart';
 
 class CharacterGrid extends StatefulWidget {
-  final Character character;
+  final Results character;
   const CharacterGrid({super.key, required this.character});
 
   @override
@@ -16,13 +15,13 @@ class _CharacterGridState extends State<CharacterGrid> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      /*  onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
                     CharacterDescriptionScreen(character: widget.character)));
-      },
+      }, */
       child: Column(
         children: [
           Flexible(
@@ -30,24 +29,24 @@ class _CharacterGridState extends State<CharacterGrid> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(100),
               child: Image(
-                image: AssetImage(widget.character.image),
+                image: NetworkImage(widget.character.image!),
               ),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(bottom: 24),
           ),
           Text(
-            widget.character.status,
+            widget.character.status!,
             style: AppFonts.s10w500.copyWith(
-              color: widget.character.isAlive
+              color: widget.character.status! == 'Alive'
                   ? Palette.isAliveColor
                   : Palette.isDeathColor,
               letterSpacing: 1.5,
             ),
           ),
           Text(
-            widget.character.name,
+            widget.character.name!,
             style: AppFonts.s16w400.copyWith(
               letterSpacing: 0.1,
               color: Colors.white,
@@ -65,4 +64,3 @@ class _CharacterGridState extends State<CharacterGrid> {
     );
   }
 }
- */

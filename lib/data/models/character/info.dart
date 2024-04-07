@@ -1,4 +1,3 @@
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'info.g.dart';
@@ -17,8 +16,12 @@ class Info {
     this.prev,
   );
 
-   factory Info.fromJson(Map<String, dynamic> json) => _$InfoFromJson(json);
+  factory Info.fromJson(Map<String, dynamic> json) => _$InfoFromJson(json);
 
-  
   Map<String, dynamic> toJson() => _$InfoToJson(this);
+
+  @override
+  String toString() {
+    return 'Info{count: $count, pages: $pages, next: $next, prev: $prev}';
+  }
 }

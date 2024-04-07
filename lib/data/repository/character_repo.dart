@@ -8,8 +8,8 @@ class CharacterRepo implements AbstractCharacterRepo {
 
   @override
   Future<Character> getCharacter(int? page, String? name) async {
-    final response =
-        await dio.get('https://rickandmortyapi.com/api/character?page=$page');
+    final response = await dio
+        .get('https://rickandmortyapi.com/api/character?page=$page&name=$name');
     return Character.fromJson(response.data);
   }
 }

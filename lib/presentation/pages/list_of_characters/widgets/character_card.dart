@@ -1,13 +1,11 @@
-/* import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/material.dart';
 
 import 'package:rick_and_morti/configs/AppFonts.dart';
 import 'package:rick_and_morti/configs/palette.dart';
-import 'package:rick_and_morti/models/character/character.dart';
-import 'package:rick_and_morti/pages/character_description/view/view.dart';
+import 'package:rick_and_morti/data/models/character/results.dart';
 
 class CharacterCard extends StatefulWidget {
-  final Character character;
+  final Results character;
   const CharacterCard({super.key, required this.character});
 
   @override
@@ -19,11 +17,11 @@ class _CharacterCardState extends State<CharacterCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
+        /* Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    CharacterDescriptionScreen(character: widget.character)));
+                    CharacterDescriptionScreen(character: widget.character))); */
       },
       child: Row(
         children: [
@@ -32,7 +30,7 @@ class _CharacterCardState extends State<CharacterCard> {
             child: Image(
               width: 74,
               height: 74,
-              image: AssetImage(widget.character.image),
+              image: NetworkImage(widget.character.image!),
             ),
           ),
           Container(
@@ -41,16 +39,16 @@ class _CharacterCardState extends State<CharacterCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  widget.character.status,
+                  widget.character.status!,
                   style: AppFonts.s10w500.copyWith(
-                    color: widget.character.isAlive
+                    color: widget.character.status! == 'Alive'
                         ? Palette.isAliveColor
                         : Palette.isDeathColor,
                     letterSpacing: 1.5,
                   ),
                 ),
                 Text(
-                  widget.character.name,
+                  widget.character.name!,
                   style: AppFonts.s16w500.copyWith(
                     color: Colors.white,
                     letterSpacing: 0.5,
@@ -71,4 +69,3 @@ class _CharacterCardState extends State<CharacterCard> {
     );
   }
 }
- */

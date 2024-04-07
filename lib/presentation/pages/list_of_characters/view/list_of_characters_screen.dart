@@ -1,10 +1,11 @@
-/* import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:rick_and_morti/configs/AppFonts.dart';
-import 'package:rick_and_morti/configs/palette.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:rick_and_morti/models/character/character.dart';
-import 'package:rick_and_morti/pages/list_of_characters/widgets/widgets.dart';
+import 'package:rick_and_morti/data/bloc/character_bloc.dart';
+
+import 'package:rick_and_morti/data/repository/character_repo.dart';
+import 'package:rick_and_morti/presentation/pages/list_of_characters/view/search_page.dart';
 
 class ListOfCharactersScreen extends StatefulWidget {
   const ListOfCharactersScreen({super.key});
@@ -14,82 +15,25 @@ class ListOfCharactersScreen extends StatefulWidget {
 }
 
 class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
+  final repository = CharacterRepo(dio: Dio());
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: BlocProvider(
+        create: (_) => CharacterBloc(characterRepo: repository),
+        child: const SearchPage(),
+      ),
+    );
+  }
+}
+
+
+
+/* class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
   bool isListView = true;
   bool isFilter = false;
-  final List<Character> _characters = [
-    Character(
-      name: 'Ф',
-      status: 'МЁРТВЫЙ',
-      species: 'Человек',
-      gender: 'Мужской',
-      image: 'assets/image/avatar.png',
-      isAlive: true,
-    ),
-    Character(
-      name: 'Б',
-      status: 'ЖИВОЙ',
-      species: 'Человек',
-      gender: 'Мужской',
-      image: 'assets/image/avatar.png',
-      isAlive: true,
-    ),
-    Character(
-      name: 'С',
-      status: 'ЖИВОЙ',
-      species: 'Человек',
-      gender: 'Мужской',
-      image: 'assets/image/avatar.png',
-      isAlive: false,
-    ),
-    Character(
-      name: 'И',
-      status: 'ЖИВОЙ',
-      species: 'Человек',
-      gender: 'Мужской',
-      image: 'assets/image/avatar.png',
-      isAlive: true,
-    ),
-    Character(
-      name: 'А',
-      status: 'ЖИВОЙ',
-      species: 'Человек',
-      gender: 'Мужской',
-      image: 'assets/image/avatar.png',
-      isAlive: true,
-    ),
-    Character(
-      name: 'А',
-      status: 'ЖИВОЙ',
-      species: 'Человек',
-      gender: 'Мужской',
-      image: 'assets/image/avatar.png',
-      isAlive: true,
-    ),
-    Character(
-      name: 'А',
-      status: 'ЖИВОЙ',
-      species: 'Человек',
-      gender: 'Мужской',
-      image: 'assets/image/avatar.png',
-      isAlive: true,
-    ),
-    Character(
-      name: 'А',
-      status: 'ЖИВОЙ',
-      species: 'Человек',
-      gender: 'Мужской',
-      image: 'assets/image/avatar.png',
-      isAlive: true,
-    ),
-    Character(
-      name: 'А',
-      status: 'ЖИВОЙ',
-      species: 'Человек',
-      gender: 'Мужской',
-      image: 'assets/image/avatar.png',
-      isAlive: true,
-    ),
-  ];
+  final List<Character> _characters = [];
+
   List<Character> _foundCharacter = [];
   Divider get _buildDivider {
     return const Divider(
@@ -102,17 +46,18 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
 
   @override
   void initState() {
-    _foundCharacter = _characters;
+/*     _foundCharacter = _characters; */
+    context.read<CharacterBloc>().add(CharacterFetch(name: '', page: 1));
     super.initState();
   }
 
-  void _runSearch(String enteredKeyword) {
+  /* void _runSearch(String enteredKeyword) {
     List<Character> results = [];
     if (enteredKeyword.isEmpty) {
       results = _characters;
     } else {
       results = _characters
-          .where((character) => character.name
+          .where((character) => character.results.name
               .toLowerCase()
               .contains(enteredKeyword.toLowerCase()))
           .toList();
@@ -131,12 +76,12 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
         }
       });
     }
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      /*  appBar: AppBar(
         backgroundColor: const Color(0xff0B1E2D),
         title: SearchBarWidget(
           onChange: (value) => _runSearch(value),
@@ -146,64 +91,88 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
           }),
           getIsFilter: getIsFilter,
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(bottom: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Всего персонажей: ${_foundCharacter.length}',
-                    style: AppFonts.s10w500.copyWith(
-                      color: Palette.smallText,
-                      letterSpacing: 1.5,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 14),
-                    child: GestureDetector(
-                      onTap: _changeView,
-                      child: isListView
-                          ? SvgPicture.asset('assets/icons/sort1.svg')
-                          : SvgPicture.asset('assets/icons/gridIcon.svg'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            _foundCharacter.isNotEmpty
-                ? (isListView ? _buildListView() : _buildGridView())
-                : Align(
-                    alignment: Alignment.center,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 60, bottom: 28),
-                          child:
-                              Image.asset('assets/image/nothing_founded.png'),
-                        ),
-                        Text(
-                          'Персонаж с таким именем\n не найден',
-                          textAlign: TextAlign.center,
-                          style: AppFonts.s16w400.copyWith(
-                            color: Palette.smallText,
-                            letterSpacing: 0.15,
+      ), */
+      body: BlocProvider(
+        create: (context) =>
+            CharacterBloc(characterRepo: CharacterRepo(dio: Dio())),
+        child: BlocBuilder<CharacterBloc, CharacterState>(
+          builder: (context, state) {
+            if (state is CharacterLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (state is CharacterLoadingFailure) {
+              return Center(
+                child: Text(state.exception.toString()),
+              );
+            }
+            if (state is CharacterLoaded) {
+              return Text(
+                  'it is okey'); /*  Padding(
+                padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Всего персонажей: ${state.character.length}',
+                            style: AppFonts.s10w500.copyWith(
+                              color: Palette.smallText,
+                              letterSpacing: 1.5,
+                            ),
                           ),
-                        ),
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.only(right: 14),
+                            child: GestureDetector(
+                              onTap: _changeView,
+                              child: isListView
+                                  ? SvgPicture.asset('assets/icons/sort1.svg')
+                                  : SvgPicture.asset(
+                                      'assets/icons/gridIcon.svg'),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-          ],
+                    _buildListView(),
+                    /*  _foundCharacter.isNotEmpty
+                              ? (isListView ? _buildListView() : _buildGridView())
+                              : Align(
+                                  alignment: Alignment.center,
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 60, bottom: 28),
+                                        child:
+                                            Image.asset('assets/image/nothing_founded.png'),
+                                      ),
+                                      Text(
+                                        'Персонаж с таким именем\n не найден',
+                                        textAlign: TextAlign.center,
+                                        style: AppFonts.s16w400.copyWith(
+                                          color: Palette.smallText,
+                                          letterSpacing: 0.15,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ), */
+                  ],
+                ),
+              ); */
+            }
+            return const CircularProgressIndicator();
+          },
         ),
       ),
     );
   }
 
-  Expanded _buildListView() {
+/*   Expanded _buildListView() {
     return Expanded(
       child: ListView.separated(
         separatorBuilder: (context, index) => _buildDivider,
@@ -212,7 +181,7 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
             CharacterCard(character: _foundCharacter[index]),
       ),
     );
-  }
+  } */
 
   void _changeView() {
     setState(() {
@@ -220,7 +189,7 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
     });
   }
 
-  Expanded _buildGridView() {
+/*   Expanded _buildGridView() {
     return Expanded(
       child: GridView.builder(
         shrinkWrap: true,
@@ -234,6 +203,6 @@ class _ListOfCharactersScreenState extends State<ListOfCharactersScreen> {
             CharacterGrid(character: _foundCharacter[index]),
       ),
     );
-  }
+  } */
 }
  */

@@ -10,7 +10,10 @@ class CharacterBloc extends Bloc<CharacterEvent, CharacterState> {
   CharacterBloc({required this.characterRepo}) : super(CharacterLoading()) {
     on<CharacterFetch>((event, emit) async {
       try {
-        emit(CharacterLoading());
+        if (state is! CharacterLoaded) {
+          emit(CharacterLoading());
+        }
+
         Character _character =
             await characterRepo.getCharacter(event.page, event.name);
         emit(CharacterLoaded(character: _character));
