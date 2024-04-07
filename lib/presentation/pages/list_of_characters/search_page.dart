@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,8 +7,8 @@ import 'package:rick_and_morti/configs/palette.dart';
 import 'package:rick_and_morti/data/bloc/character_bloc.dart';
 import 'package:rick_and_morti/data/models/character/character.dart';
 import 'package:rick_and_morti/data/models/character/results.dart';
-import 'package:rick_and_morti/presentation/pages/list_of_characters/widgets/character_card.dart';
-import 'package:rick_and_morti/presentation/pages/list_of_characters/widgets/character_grid.dart';
+import 'package:rick_and_morti/presentation/widgets/character_card.dart';
+import 'package:rick_and_morti/presentation/widgets/character_grid.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -29,7 +28,6 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     if (_currentResults!.isEmpty) {
       context.read<CharacterBloc>().add(CharacterFetch(name: '', page: 1));
@@ -161,8 +159,11 @@ class _SearchPageState extends State<SearchPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('РЕЗУЛЬТАТЫ ПОИСКА',
-            style: AppFonts.s10w500.copyWith(color: Palette.smallText)),
+        Padding(
+          padding: const EdgeInsets.only(top: 23),
+          child: Text('РЕЗУЛЬТАТЫ ПОИСКА',
+              style: AppFonts.s10w500.copyWith(color: Palette.smallText)),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 60, bottom: 28),
           child: Image.asset('assets/image/nothing_founded.png'),
