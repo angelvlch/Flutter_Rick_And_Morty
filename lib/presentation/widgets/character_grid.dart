@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:rick_and_morti/configs/AppFonts.dart';
 import 'package:rick_and_morti/configs/palette.dart';
 import 'package:rick_and_morti/data/models/character/results.dart';
+import 'package:rick_and_morti/presentation/pages/character_description/character_description_screen.dart';
 
 class CharacterGrid extends StatefulWidget {
   final Results character;
@@ -15,13 +16,13 @@ class _CharacterGridState extends State<CharacterGrid> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      /*  onTap: () {
+      onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) =>
                     CharacterDescriptionScreen(character: widget.character)));
-      }, */
+      },
       child: Column(
         children: [
           Flexible(

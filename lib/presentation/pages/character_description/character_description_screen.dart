@@ -1,15 +1,14 @@
-/* import 'dart:ui';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rick_and_morti/configs/AppFonts.dart';
 import 'package:rick_and_morti/configs/palette.dart';
-import 'package:rick_and_morti/models/character/character.dart';
+import 'package:rick_and_morti/data/models/character/results.dart';
 
 class CharacterDescriptionScreen extends StatelessWidget {
-  final Character character;
+  final Results character;
   const CharacterDescriptionScreen({super.key, required this.character});
 
   @override
@@ -26,11 +25,9 @@ class CharacterDescriptionScreen extends StatelessWidget {
                 Container(
                   height: 218,
                   alignment: Alignment.center,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(
-                        'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-                      ),
+                      image: NetworkImage(character.image!),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -50,15 +47,14 @@ class CharacterDescriptionScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Positioned(
+                Positioned(
                   bottom: -100.0,
                   child: CircleAvatar(
                     radius: 108,
-                    backgroundColor: Color(0xff0B1E2D),
+                    backgroundColor: const Color(0xff0B1E2D),
                     child: CircleAvatar(
                       radius: 100,
-                      backgroundImage: NetworkImage(
-                          'https://rickandmortyapi.com/api/character/avatar/1.jpeg'),
+                      backgroundImage: NetworkImage(character.image!),
                     ),
                   ),
                 ),
@@ -70,7 +66,7 @@ class CharacterDescriptionScreen extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: Text(
-                character.name,
+                character.name!,
                 style: AppFonts.s34w400.copyWith(
                   letterSpacing: 0.25,
                   color: Colors.white,
@@ -80,8 +76,8 @@ class CharacterDescriptionScreen extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: Text(
-                character.status,
-                style: (character.status == 'ЖИВОЙ')
+                character.status!,
+                style: (character.status == 'Alive')
                     ? AppFonts.s10w500.copyWith(
                         color: Palette.isAliveColor,
                         letterSpacing: 1.5,
@@ -106,7 +102,7 @@ class CharacterDescriptionScreen extends StatelessWidget {
                               style: AppFonts.s12w400
                                   .copyWith(color: Palette.smallText)),
                           Text(
-                            character.gender,
+                            character.gender!,
                             style:
                                 AppFonts.s14w400.copyWith(color: Colors.white),
                           ),
@@ -121,7 +117,7 @@ class CharacterDescriptionScreen extends StatelessWidget {
                                 style: AppFonts.s12w400
                                     .copyWith(color: Palette.smallText)),
                             Text(
-                              character.species,
+                              character.species!,
                               style: AppFonts.s14w400
                                   .copyWith(color: Colors.white),
                             ),
@@ -140,7 +136,7 @@ class CharacterDescriptionScreen extends StatelessWidget {
                           style: AppFonts.s12w400
                               .copyWith(color: Palette.smallText)),
                       Text(
-                        'Земля',
+                        character.origin!.name!,
                         style: AppFonts.s14w400.copyWith(color: Colors.white),
                       ),
                     ],
@@ -155,7 +151,7 @@ class CharacterDescriptionScreen extends StatelessWidget {
                           style: AppFonts.s12w400
                               .copyWith(color: Palette.smallText)),
                       Text(
-                        'Земля',
+                        character.location!.name!,
                         style: AppFonts.s14w400.copyWith(color: Colors.white),
                       ),
                     ],
@@ -189,4 +185,3 @@ class CharacterDescriptionScreen extends StatelessWidget {
     );
   }
 }
- */

@@ -4,7 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pull_to_refresh_flutter3/pull_to_refresh_flutter3.dart';
 import 'package:rick_and_morti/configs/AppFonts.dart';
 import 'package:rick_and_morti/configs/palette.dart';
-import 'package:rick_and_morti/data/bloc/character_bloc.dart';
+import 'package:rick_and_morti/presentation/bloc/character_bloc.dart';
 import 'package:rick_and_morti/data/models/character/character.dart';
 import 'package:rick_and_morti/data/models/character/results.dart';
 import 'package:rick_and_morti/presentation/widgets/character_card.dart';
@@ -38,6 +38,13 @@ class _SearchPageState extends State<SearchPage> {
     setState(() {
       isListView = !isListView;
     });
+  }
+
+  Divider get _buildDivider {
+    return const Divider(
+      height: 24,
+      color: Color(0xff0B1E2D),
+    );
   }
 
   @override
@@ -109,7 +116,7 @@ class _SearchPageState extends State<SearchPage> {
 
   ListView _buildListView(List<Results>? results) {
     return ListView.separated(
-      separatorBuilder: (context, index) => const Divider(),
+      separatorBuilder: (context, index) => _buildDivider,
       itemCount: results!.length,
       itemBuilder: (context, index) => CharacterCard(character: results[index]),
     );
