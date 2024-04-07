@@ -14,9 +14,9 @@ class CharacterBloc extends Bloc<CharacterEvent, CharacterState> {
           emit(CharacterLoading());
         }
 
-        Character _character =
+        Character character =
             await characterRepo.getCharacter(event.page, event.name);
-        emit(CharacterLoaded(character: _character));
+        emit(CharacterLoaded(character: character));
       } catch (e) {
         emit(CharacterLoadingFailure(exception: e));
       }

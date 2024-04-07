@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morti/data/models/episode/episode.dart';
 import 'package:rick_and_morti/data/repository/episode_repo.dart';
