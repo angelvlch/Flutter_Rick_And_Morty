@@ -4,8 +4,7 @@ import 'package:rick_and_morti/data/repository/episode_repo.dart';
 import 'package:rick_and_morti/internal/app.dart';
 
 void main() {
-  EpisodeRepo(dio: Dio()).getEpisodes('');
-  /*  runApp(
+  runApp(
     const App(),
-  ); */
+  );
 }

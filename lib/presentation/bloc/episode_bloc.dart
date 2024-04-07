@@ -9,7 +9,7 @@ part 'episode_state.dart';
 class EpisodeBloc extends Bloc<EpisodeEvent, EpisodeState> {
   final EpisodeRepo episodeRepo;
   EpisodeBloc({required this.episodeRepo}) : super(EpisodeLoading()) {
-    on<EposideFetch>(
+    on<EpisodeFetch>(
       (event, emit) async {
         try {
           if (state is! EpisodeLoaded) {

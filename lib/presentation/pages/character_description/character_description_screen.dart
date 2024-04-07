@@ -1,15 +1,34 @@
 import 'dart:ui';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_and_morti/configs/AppFonts.dart';
 import 'package:rick_and_morti/configs/palette.dart';
 import 'package:rick_and_morti/data/models/character/results.dart';
+import 'package:rick_and_morti/data/models/episode/episode.dart';
+import 'package:rick_and_morti/data/repository/episode_repo.dart';
+import 'package:rick_and_morti/presentation/bloc/episode_bloc.dart';
 
-class CharacterDescriptionScreen extends StatelessWidget {
+class CharacterDescriptionScreen extends StatefulWidget {
   final Results character;
   const CharacterDescriptionScreen({super.key, required this.character});
+
+  @override
+  State<CharacterDescriptionScreen> createState() =>
+      _CharacterDescriptionScreenState();
+}
+
+class _CharacterDescriptionScreenState
+    extends State<CharacterDescriptionScreen> {
+  @override
+  void initState() {
+    BlocProvider.of<EpisodeBloc>(context)
+        .add(EpisodeFetch(urls: widget.character.episode as List<String>));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +46,7 @@ class CharacterDescriptionScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(character.image!),
+                      image: NetworkImage(widget.character.image!),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -54,7 +73,7 @@ class CharacterDescriptionScreen extends StatelessWidget {
                     backgroundColor: const Color(0xff0B1E2D),
                     child: CircleAvatar(
                       radius: 100,
-                      backgroundImage: NetworkImage(character.image!),
+                      backgroundImage: NetworkImage(widget.character.image!),
                     ),
                   ),
                 ),
@@ -66,7 +85,7 @@ class CharacterDescriptionScreen extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: Text(
-                character.name!,
+                widget.character.name!,
                 style: AppFonts.s34w400.copyWith(
                   letterSpacing: 0.25,
                   color: Colors.white,
@@ -76,8 +95,8 @@ class CharacterDescriptionScreen extends StatelessWidget {
             Align(
               alignment: Alignment.center,
               child: Text(
-                character.status!,
-                style: (character.status == 'Alive')
+                widget.character.status!,
+                style: (widget.character.status == 'Alive')
                     ? AppFonts.s10w500.copyWith(
                         color: Palette.isAliveColor,
                         letterSpacing: 1.5,
@@ -102,7 +121,7 @@ class CharacterDescriptionScreen extends StatelessWidget {
                               style: AppFonts.s12w400
                                   .copyWith(color: Palette.smallText)),
                           Text(
-                            character.gender!,
+                            widget.character.gender!,
                             style:
                                 AppFonts.s14w400.copyWith(color: Colors.white),
                           ),
@@ -117,7 +136,7 @@ class CharacterDescriptionScreen extends StatelessWidget {
                                 style: AppFonts.s12w400
                                     .copyWith(color: Palette.smallText)),
                             Text(
-                              character.species!,
+                              widget.character.species!,
                               style: AppFonts.s14w400
                                   .copyWith(color: Colors.white),
                             ),
@@ -136,7 +155,7 @@ class CharacterDescriptionScreen extends StatelessWidget {
                           style: AppFonts.s12w400
                               .copyWith(color: Palette.smallText)),
                       Text(
-                        character.origin!.name!,
+                        widget.character.origin!.name!,
                         style: AppFonts.s14w400.copyWith(color: Colors.white),
                       ),
                     ],
@@ -151,7 +170,7 @@ class CharacterDescriptionScreen extends StatelessWidget {
                           style: AppFonts.s12w400
                               .copyWith(color: Palette.smallText)),
                       Text(
-                        character.location!.name!,
+                        widget.character.location!.name!,
                         style: AppFonts.s14w400.copyWith(color: Colors.white),
                       ),
                     ],
@@ -178,6 +197,32 @@ class CharacterDescriptionScreen extends StatelessWidget {
                 'Эпизоды',
                 style: AppFonts.s20w500.copyWith(color: Colors.white),
               ),
+            ),
+            BlocBuilder<EpisodeBloc, EpisodeState>(
+              bloc: EpisodeBloc(episodeRepo: EpisodeRepo(dio: Dio())),
+              builder: (context, state) {
+                if (state is EpisodeLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                if (state is EpisodeLoaded) {
+                  return ListView.builder(
+                      itemCount: state.episodes.length,
+                      itemBuilder: ((context, index) {
+                        return Column(
+                          children: [
+                            Text('Серия${state.episodes[index].id}',
+                                style: AppFonts.s10w500
+                                    .copyWith(color: Palette.series))
+                          ],
+                        );
+                      }));
+                }
+
+                return const SizedBox();
+              },
             ),
           ],
         ),
