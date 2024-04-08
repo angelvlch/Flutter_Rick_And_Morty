@@ -58,7 +58,7 @@ class _SearchPageState extends State<SearchPage> {
         BlocBuilder<CharacterBloc, CharacterState>(builder: (context, state) {
           if (state is CharacterLoading) {
             if (!_isPagination) {
-              return const CircularProgressIndicator();
+              return const Center(child: CircularProgressIndicator());
             } else {
               return _createCatalog(_currentResults);
             }

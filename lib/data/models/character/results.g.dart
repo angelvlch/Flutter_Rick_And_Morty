@@ -20,7 +20,8 @@ Results _$ResultsFromJson(Map<String, dynamic> json) => Results(
           ? null
           : Location.fromJson(json['location'] as Map<String, dynamic>),
       image: json['image'] as String?,
-      episode: json['episode'] as List<dynamic>?,
+      episode:
+          (json['episode'] as List<dynamic>?)?.map((e) => e as String).toList(),
       url: json['url'] as String?,
       created: json['created'] as String?,
     );

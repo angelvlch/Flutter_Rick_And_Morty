@@ -17,7 +17,7 @@ class Results {
   Origin? origin;
   Location? location;
   String? image;
-  List<dynamic>? episode;
+  List<String>? episode;
   String? url;
   String? created;
 

@@ -9,9 +9,16 @@ class EpisodeRepo {
   Future<List<Episode>> getEpisodes(String? series) async {
     final response =
         await dio.get('https://rickandmortyapi.com/api/episode/$series');
-    final List<dynamic> data = response.data['results'];
-    final episodes = data.map((e) => Episode.fromJson(e)).toList();
+    List<Episode> episodes;
+    if (series!.contains(',')) {
+      final List<dynamic> data = response.data;
+
+      episodes = data.map((e) => Episode.fromJson(e)).toList();
+    } else {
+      final Map<String, dynamic> data = response.data;
+      final episode = Episode.fromJson(data);
+      episodes = [episode];
+    }
     return episodes;
-    //return Character.fromJson(response.data);
   }
 }

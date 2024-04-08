@@ -16,10 +16,13 @@ class EpisodeBloc extends Bloc<EpisodeEvent, EpisodeState> {
           }
           String series = event.urls
               .map(
-                (e) => e.substring(e.length - 1),
+                (e) => e.replaceFirst(
+                    "https://rickandmortyapi.com/api/episode/", ''),
               )
               .join(',');
+
           List<Episode> episodes = await episodeRepo.getEpisodes(series);
+
           emit(EpisodeLoaded(episodes: episodes));
         } catch (e) {
           emit(EpisodeFailure(exceprtion: e));
