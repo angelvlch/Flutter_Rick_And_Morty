@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:rick_and_morti/data/repository/abstract_character_repo.dart';
 import 'package:rick_and_morti/data/repository/episode_repo.dart';
 import 'package:rick_and_morti/presentation/bloc/character_bloc.dart';
-import 'package:rick_and_morti/data/repository/character_repo.dart';
+
 import 'package:rick_and_morti/presentation/bloc/episode_bloc.dart';
 import 'package:rick_and_morti/presentation/pages/character_catalog/list_of_characters_screen.dart';
 
@@ -15,8 +17,9 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<CharacterBloc>(
-          create: (context) =>
-              CharacterBloc(characterRepo: CharacterRepo(dio: Dio())),
+          create: (context) => CharacterBloc(
+            characterRepo: GetIt.I<AbstractCharacterRepo>(),
+          ),
         ),
         BlocProvider<EpisodeBloc>(
           create: (context) =>

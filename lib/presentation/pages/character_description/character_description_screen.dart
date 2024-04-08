@@ -190,7 +190,6 @@ class _CharacterDescriptionScreenState
           Padding(
             padding: const EdgeInsets.only(
               left: 16,
-              bottom: 24,
             ),
             child: Text(
               'Эпизоды',
@@ -210,7 +209,11 @@ class _CharacterDescriptionScreenState
                   child: ListView.builder(
                       itemCount: state.episodes.length,
                       itemBuilder: ((context, index) {
-                        return EpisodeTile(series: state.episodes[index]);
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 17),
+                          child: EpisodeTile(series: state.episodes[index]),
+                        );
                       })),
                 );
               }
