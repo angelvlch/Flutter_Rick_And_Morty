@@ -7,6 +7,7 @@ import 'package:rick_and_morti/configs/palette.dart';
 import 'package:rick_and_morti/presentation/bloc/character_bloc.dart';
 import 'package:rick_and_morti/data/models/character/character.dart';
 import 'package:rick_and_morti/data/models/character/results.dart';
+import 'package:rick_and_morti/presentation/pages/filter/filter_screen.dart';
 import 'package:rick_and_morti/presentation/widgets/character_card.dart';
 import 'package:rick_and_morti/presentation/widgets/character_grid.dart';
 
@@ -221,23 +222,21 @@ class _SearchPageState extends State<SearchPage> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: GestureDetector(
-            onTap: () {
-              /* Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => FilterScreen(
-                  onChange: widget.isAsc,
-                  isFilter: widget.isFilter,
-                  getIsFilter: widget.getIsFilter,
-                ),
-              ),
-            ); */
-            },
+            onTap: _onFilterPressed,
             child: SvgPicture.asset('assets/icons/filter.svg'),
           ),
         )
       ],
       backgroundColor: MaterialStateProperty.all(Palette.searchBar),
+    );
+  }
+
+  void _onFilterPressed() async {
+    final results = Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const FilterScreen(),
+      ),
     );
   }
 }

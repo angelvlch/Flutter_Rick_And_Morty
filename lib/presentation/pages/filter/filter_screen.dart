@@ -3,17 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rick_and_morti/configs/AppFonts.dart';
 import 'package:rick_and_morti/configs/palette.dart';
+import 'package:rick_and_morti/data/models/enums.dart';
 
 class FilterScreen extends StatefulWidget {
-  final Function onChange;
-  final Function isFilter;
-
-  final Function getIsFilter;
-  FilterScreen({
+  const FilterScreen({
     super.key,
-    required this.onChange,
-    required this.isFilter,
-    required this.getIsFilter,
   });
 
   @override
@@ -21,14 +15,9 @@ class FilterScreen extends StatefulWidget {
 }
 
 class _FilterScreenState extends State<FilterScreen> {
-  final List<Map> _statusList = [
-    {'name': 'Живой', "isChecked": false},
-    {'name': 'Мертвый', "isChecked": false},
-    {'name': 'Неизвестно', "isChecked": false},
-  ];
-  bool isAscending = false;
-  bool isDesc = false;
-  //bool isChoose = false;
+  Status filterStatus = Status.empty;
+  Gender filterGender = Gender.empty;
+  bool isFilterActive = false;
 
   @override
   Widget build(BuildContext context) {
@@ -45,11 +34,13 @@ class _FilterScreenState extends State<FilterScreen> {
                 color: Colors.white,
               ),
             ),
-            if (widget.getIsFilter())
+            if (isFilterActive)
               GestureDetector(
                 child: SvgPicture.asset('assets/image/Group.svg'),
                 onTap: () => setState(() {
-                  widget.isFilter(false);
+                  isFilterActive = false;
+                  filterStatus = Status.empty;
+                  filterGender = Gender.empty;
                 }),
               ),
           ],
@@ -81,14 +72,14 @@ class _FilterScreenState extends State<FilterScreen> {
                 Row(
                   children: [
                     GestureDetector(
-                      onTap: _changeSortAsc,
+                      //  onTap: _changeSortAsc,
                       child: SvgPicture.asset(
                         'assets/image/sortMax.svg',
-                        color: widget.getIsFilter()
+                        /*   color: widget.getIsFilter()
                             ? (isAscending
                                 ? Palette.filterIcon
                                 : Palette.smallText)
-                            : Palette.smallText,
+                            : Palette.smallText, */
                       ),
                     ),
                     const Padding(
@@ -97,12 +88,12 @@ class _FilterScreenState extends State<FilterScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: _changeSortDesc,
+                      // onTap: _changeSortDesc,
                       child: SvgPicture.asset(
                         'assets/image/sortMin.svg',
-                        color: widget.getIsFilter()
+                        /*   color: widget.getIsFilter()
                             ? (isDesc ? Palette.filterIcon : Palette.smallText)
-                            : Palette.smallText,
+                            : Palette.smallText, */
                       ),
                     ),
                   ],
@@ -119,37 +110,96 @@ class _FilterScreenState extends State<FilterScreen> {
             const SizedBox(
               height: 36,
             ),
-            Text(
-              'Статус'.toUpperCase(),
-              style: AppFonts.s10w500.copyWith(
-                color: Palette.description,
-              ),
+            _buildCheckList(
+                'СТАТУС', Status.alive, Status.dead, Status.unknown),
+            const SizedBox(
+              height: 36,
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 24),
-              child: Column(
-                children: _statusList.map((list) {
-                  return CheckboxListTile(
-                    controlAffinity: ListTileControlAffinity.leading,
-                    checkColor: Colors.black,
-                    activeColor: Palette.filterIcon,
-                    value: list['isChecked'],
-                    title: Text(
-                      list['name'],
-                      style: AppFonts.s16w400.copyWith(color: Colors.white),
-                    ),
-                    onChanged: (bool? value) {},
-                  );
-                }).toList(),
-              ),
-            )
+            const Divider(
+              color: Palette.searchBar,
+              height: 2,
+            ),
+            const SizedBox(
+              height: 36,
+            ),
+            _buildCheckList(
+                'ПОЛ', Gender.female, Gender.male, Gender.genderless),
           ],
         ),
       ),
     );
   }
 
-  void _changeSortAsc() {
+  _buildCheckList(String label, Enum option1, Enum option2, Enum option3) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 24),
+          child: Text(
+            label,
+            style: AppFonts.s10w500.copyWith(color: Palette.description),
+          ),
+        ),
+        _buildFilterCheck(option1),
+        _buildFilterCheck(option2),
+        _buildFilterCheck(option3),
+      ],
+    );
+  }
+
+  _buildFilterCheck(Enum option) {
+    return Row(
+      children: [
+        Checkbox(
+          side: const BorderSide(color: Palette.description, width: 2),
+          activeColor: Palette.filterIcon,
+          value: _isActive(option),
+          onChanged: (value) {
+            print(value);
+            if (value!) {
+              setState(() {
+                if (option is Status) {
+                  filterStatus = option;
+                } else if (option is Gender) {
+                  filterGender = option;
+                }
+                isFilterActive = true;
+              });
+            } else {
+              setState(() {
+                if (option is Status) {
+                  filterStatus = option;
+                } else if (option is Gender) {
+                  filterGender = option;
+                }
+              });
+            }
+          },
+        ),
+        const SizedBox(
+          width: 16,
+        ),
+        Text(
+          option.name,
+          style: AppFonts.s16w400.copyWith(color: Colors.white),
+        ),
+      ],
+    );
+  }
+
+  _isActive(Enum option) {
+    if (option is Status) {
+      return filterStatus == option;
+    }
+    if (option is Gender) {
+      return filterGender == option;
+    }
+    return false;
+  }
+
+  /*  void _changeSortAsc() {
     setState(() {
       isAscending = !isAscending;
       if (isAscending) {
@@ -173,5 +223,5 @@ class _FilterScreenState extends State<FilterScreen> {
       isAscending = false;
     });
     widget.onChange(isAscending);
-  }
+  } */
 }
